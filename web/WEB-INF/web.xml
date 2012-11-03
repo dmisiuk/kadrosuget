@@ -4,5 +4,13 @@
            xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 		  http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
            version="2.5">
+    <servlet>
+        <servlet-name>KSController</servlet-name>
+        <servlet-class>by.minsler.kadrosuget.controller.KSController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>KSController</servlet-name>
+        <url-pattern>/ks</url-pattern>
+    </servlet-mapping>
 
 </web-app>

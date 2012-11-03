@@ -23,28 +23,52 @@ div#search {
 }
 
 div#content {
-    height: 500px;
+    height: 750px;
     background-color: #fff8dc;
     float: none;
 }
 
-div#trailer {
+div#trailer,div#kadrosuget  {
+    text-align: center;
     height: 100%;
 }
 
-div#trailer_header {
+div#trailer_header,div#kadrosuget_header {
   background-color: #f0fff0;
-  height: 10%;
+  height: 5%;
 }
 
-div#trailer_content {
-    height: 75%;
+div#trailer_content,div#kadrosuget_content {
+    height: 80%;
     background-color: #696969;
 }
 
-div#trailer_footer {
+
+
+div#left {
+    position: absolute;
+    left:0px;
+    top:200px;
+    z-index:1;
+}
+
+
+div#right {
+    position: absolute;
+    right:0px;
+    top:200px;
+    z-index:1;
+}
+
+
+
+div#trailer_footer,div#kadrosuget_footer {
+  clear: both;
+  text-align: justify;
   background-color: #e9967a;
-    height: 15%;
+  height: 15%;
+  padding-left: 15%;
+  padding-right: 15%;
 }
 
 footer {
@@ -53,7 +77,6 @@ footer {
     float: left;
     width: 100%;
     text-align: center;
-    padding-left: 500px;
 }
 
 
