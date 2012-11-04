@@ -13,4 +13,14 @@
         <url-pattern>/ks</url-pattern>
     </servlet-mapping>
 
+
+    <servlet>
+        <servlet-name>AdminController</servlet-name>
+        <servlet-class>by.minsler.kadrosuget.controller.AdminController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminController</servlet-name>
+        <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
+
 </web-app>

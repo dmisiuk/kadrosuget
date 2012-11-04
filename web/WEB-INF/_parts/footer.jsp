@@ -5,6 +5,7 @@
             <li>(с) КадроСюжет</li>
             <li><a href="/kadrosuget/all">Все кадросюжеты</a></li>
             <li><a href="/trailer/all">Все трейлеры</a></li>
+            <li><a href="/admin">Панель администратора</a></li>
         </ul>
     </div>
 </footer>
