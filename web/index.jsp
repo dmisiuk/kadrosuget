@@ -15,7 +15,7 @@
             Шерлок Холмс 2: Игра теней.
         </div>
         <div id="trailer_content">
-            <iframe width="1067" height="600" src="http://www.youtube.com/embed/AwV9L9M4n3I" frameborder="0" allowfullscreen></iframe>
+            <iframe width="1067" height="600" src="http://www.youtube.com/embed/AwV9L9M4n3I?fs=1" frameborder="0" allowfullscreen></iframe>
         </div>
         <div id="trailer_footer">
             Описание: Когда крон-принц Австрии был найден мертвым, все улики, по мнению инспектора Лестрейда, указывали на самоубийство.
