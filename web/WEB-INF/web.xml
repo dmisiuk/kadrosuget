@@ -25,7 +25,7 @@
 
     <context-param>
         <param-name>admin</param-name>
-        <param-value>lit.serge2@gmail.com</param-value>
+        <param-value>lit.serge@gmail.com</param-value>
     </context-param>
 
 </web-app>
