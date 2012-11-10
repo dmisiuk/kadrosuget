@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Kadrosuget</title>
+    <title>Infokadr</title>
     <meta charset="UTF-8">
     <link type="text/css" rel="stylesheet" href="/css/default.css">
   </head>
