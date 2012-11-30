@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+
+    <title>Инфокадр: трейлеры фильмов 2012-2013 и кадросюжеты | новые трейлеры онлайн | кадры из фильмов</title>
+    <meta name="description" content="Трейлеры и кадросюжеты фильмов (кадры из фильмов и сюжеты к ним)." />
+    <meta name="keywords" content="инфокадр, трейлеры, трейлеры фильмов, новые трейлеры, трейлеры онлайн, кадросюжеты, кадры из фильмов, сюжеты фильмов" />
+
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="bootstrap/css/responsive-video.css" rel="stylesheet">
+    <script src="js/jquery.min.js" type="text/javascript"></script>
+    <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="bootstrap/js/bootstrap-transition.js" type="text/javascript"></script>
+    <script src="bootstrap/js/bootstrap-dropdown.js" type="text/javascript"></script>
+    <script src="js/infokadr.js" type="text/javascript"></script>
+    <style>
+        *{
+            color: #333333;
+        }
+        .page-header {
+            overflow: hidden;
+        }
+        .page-header div {
+            float: right;
+        }
+        .nav-header {
+            text-transform: none;
+            font-size: 14px;
+            font-weight: normal;
+            color: #777777;
+        }
+        .btn-primary {
+            color: #ffffff;
+            text-shadow: none;
+            background-color: #08C;
+            *background-color: #08C;
+            background-image: none;
+            background-image: none;
+            background-image: none;
+            background-image: none;
+            background-image: none;
+            background-repeat: repeat-x;
+            border-color: #08C #08C #08C;
+            border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+            filter: none;
+            filter: none;
+        }
+        .btn-group.open .btn-primary.dropdown-toggle {
+            background-color: #08C;
+        }
+        .btn-primary:hover,
+        .btn-primary:active,
+        .btn-primary.active,
+        .btn-primary.disabled,
+        .btn-primary[disabled] {
+            color: #ffffff;
+            background-color: #08C;
+            *background-color: #08C;
+        }
+    </style>
+
+</head>
+<body style="background-color: whiteSmoke">
+
+<div class="container">
+    <br>
+    <div class="row">
+        <div class="span6">
+            <ul class="nav nav-pills">
+                <li><a href="/" style="font-weight: bold;">infokadr</a></li>
+                <li><a href="#">трейлеры</a></li>
+                <li><a href="#">кадросюжеты</a></li>
+            </ul>
+        </div>
+        <div style="text-align: right" class="span6">
+            <div class="control-group">
+                <div class="controls">
+                    <div class="input-prepend">
+                    <span class="add-on">
+                        <i class="icon-search"></i>
+                    </span>
+                        <input type="search" class="span3" placeholder="поиск по названию фильма" name="search" id="search"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="span2">
+
+        </div>
+        <div id="title" class="span6">
+
+            <a href="#"><span class="label label-info" style="background-color: #08C;">ещё трейлер</span></a>
+        </div>
+
+        <div class="span2" style="text-align: right">
+            <button class="btn btn-mini btn-primary" style="font-size: 12px;font-weight: bold;">кадросюжет</button>
+        </div>
+        <div class="span2">
+
+        </div>
+    </div>
+    <br>
+    <div class="row" style="font-size: 14px">
+        <div class="span2">
+            <ul id="previous" class="nav nav-list">
+                <!--<li class="previous">-->
+                    <!--<a href="#">&larr;</a>-->
+                <!--</li>-->
+                <li> <a href="javascript:previous()"><img src="image/vlevo.png"></a></li>
+                <li class="nav-header">Предыдущие трейлеры:</li>
+
+            </ul>
+        </div>
+        <div class="span8">
+            <div class="flex-video widescreen"><iframe id="film_url" src="" frameborder="0" allowfullscreen></iframe></div>
+        </div>
+        <div class="span2">
+            <ul id="next" class="nav nav-list">
+                <!--<li class="previous">-->
+                    <!--<a href="#">&rarr;</a>-->
+                <!--</li>-->
+                <li> <a href="javascript:next()"><img src="image/vpravo.png"></a></li>
+                <li class="nav-header">Следующие трейлеры:</li>
+                </ul>
+        </div>
+    </div>
+    <div class="row" >
+        <div class="span2">
+            <a style="color: #737373; ; text-decoration: no-underline;" href="mailto:kino@dol.by">kino@dol.by</a>
+        </div>
+        <div id="description" class="span8" ></div>
+        <div class="span2">
+
+        </div>
+    </div>
+
+
+</div>
+
+</body>
+</html>
