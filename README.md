@@ -1,0 +1,1 @@
+Gir repo for [infokadr.com](http://www.infokadr.com) project
