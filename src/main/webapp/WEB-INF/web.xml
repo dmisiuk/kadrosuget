@@ -1,31 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns="http://java.sun.com/xml/ns/javaee"
-           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
-		  http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-           version="2.5">
-    <servlet>
-        <servlet-name>KSController</servlet-name>
-        <servlet-class>by.minsler.kadrosuget.controller.KSController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>KSController</servlet-name>
-        <url-pattern>/ks</url-pattern>
-    </servlet-mapping>
-
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         id="WebApp_ID" version="3.0">
 
     <servlet>
         <servlet-name>AdminController</servlet-name>
-        <servlet-class>by.minsler.kadrosuget.controller.AdminController</servlet-class>
+        <servlet-class>by.minsler.infokadr.controller.AdminController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AdminController</servlet-name>
         <url-pattern>/admin</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>AdminServiceController</servlet-name>
+        <servlet-class>by.minsler.infokadr.controller.AdminServiceController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminServiceController</servlet-name>
+        <url-pattern>/adminrpc</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>FilmController</servlet-name>
+        <servlet-class>by.minsler.infokadr.controller.FilmController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FilmController</servlet-name>
+        <url-pattern>/films</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>TrailerController</servlet-name>
+        <servlet-class>by.minsler.infokadr.controller.TrailerController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TrailerController</servlet-name>
+        <url-pattern>/trailers</url-pattern>
+    </servlet-mapping>
+
     <context-param>
         <param-name>admin</param-name>
         <param-value>lit.serge@gmail.com</param-value>
     </context-param>
+
+    <filter>
+        <filter-name>ObjectifyFilter</filter-name>
+        <filter-class>com.googlecode.objectify.ObjectifyFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>ObjectifyFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <listener>
+        <display-name>Init Ojbectify</display-name>
+        <listener-class>by.minsler.infokadr.objectify.InitObjectify</listener-class>
+    </listener>
 
 </web-app>

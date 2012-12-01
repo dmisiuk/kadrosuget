@@ -22,13 +22,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-servlet_2.5_spec</artifactId>
-            <version>1.2</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
             <groupId>com.google.appengine</groupId>
             <artifactId>appengine-api-labs</artifactId>
             <version>${gae.version}</version>
@@ -53,7 +46,36 @@
             <artifactId>objectify</artifactId>
             <version>4.0b1</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.googlecode</groupId>
+            <artifactId>jsonrpc4j</artifactId>
+            <version>0.25</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.portlet</groupId>
+            <artifactId>portlet-api</artifactId>
+            <version>2.0</version>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
+
+    <repositories>
+        <repository>
+            <id>jsonrpc4j-webdav-maven-repo</id>
+            <name>jsonrpc4j maven repository</name>
+            <url>http://jsonrpc4j.googlecode.com/svn/maven/repo/</url>
+            <layout>default</layout>
+        </repository>
+    </repositories>
 
     <build>
         <plugins>
