@@ -12,7 +12,12 @@ import java.util.Map;
  */
 public interface AdminService {
 
-    Long createFilm(Map<String, String> map);
+    String createFilm(Map<String, String> map);
 
     List<Film> readAllFilms();
+
+    String createTrailerWithParent(Map<String, Object> map);
+
+    String createTrailer(Map<String, String> map);
+
 }

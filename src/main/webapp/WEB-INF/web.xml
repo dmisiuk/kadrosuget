@@ -18,8 +18,58 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>AdminServiceController</servlet-name>
-        <url-pattern>/adminrpc</url-pattern>
+        <url-pattern>/admin/jsonrpc</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>RpcController</servlet-name>
+        <servlet-class>by.minsler.infokadr.controller.RpcController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RpcController</servlet-name>
+        <url-pattern>/rpc</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>RpcError</servlet-name>
+        <servlet-class>by.minsler.infokadr.controller.JsonErrorServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RpcError</servlet-name>
+        <url-pattern>/admin/jsonrpcerror</url-pattern>
+    </servlet-mapping>
+
+    <filter>
+        <filter-name>UrlRewriteFilter</filter-name>
+        <filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
+        <init-param>
+            <param-name>logLevel</param-name>
+            <param-value>DEBUG</param-value>
+        </init-param>
+        <init-param>
+            <param-name>statusEnabled</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>UrlRewriteFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+
+    <filter>
+        <filter-name>AdminRpcFilter</filter-name>
+        <filter-class>by.minsler.infokadr.filter.AdminRpcFilter</filter-class>
+        <init-param>
+            <param-name>admin</param-name>
+            <param-value>lit.serge@gmail.com</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>AdminRpcFilter</filter-name>
+        <url-pattern>/admin/jsonrpc</url-pattern>
+    </filter-mapping>
 
     <servlet>
         <servlet-name>FilmController</servlet-name>

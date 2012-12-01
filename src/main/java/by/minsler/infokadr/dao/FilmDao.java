@@ -35,4 +35,8 @@ public class FilmDao {
     public List<Film> readAllFilms() {
         return ofy().load().type(Film.class).list();
     }
+
+    public Film readFilm(int lid) {
+        return ofy().load().type(Film.class).id(lid).get();
+    }
 }

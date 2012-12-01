@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -43,11 +42,11 @@ public class TrailerController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String description = req.getParameter("description");
-        Trailer tr = new Trailer();
-        tr.description = description;
-        tr.added = new Date();
-        dao.createTrailer(tr);
+//        String description = req.getParameter("description");
+//        Trailer tr = new Trailer();
+//        tr.description = description;
+//        tr.added = new Date();
+//        dao.createTrailer(tr);
         this.doGet(req, resp);
     }
 }

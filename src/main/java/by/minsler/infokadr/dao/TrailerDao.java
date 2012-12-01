@@ -23,8 +23,11 @@ public class TrailerDao {
         ofy().delete().key(key).now();
     }
 
-    public Trailer readTrailer(Key<Trailer> key) {
-        return ofy().load().key(key).get();
+    public Trailer readTrailer(String keyString) {
+        Key<Trailer> key = Key.create(keyString);
+        Trailer tr = ofy().load().key(key).get();
+        tr.film = null;
+        return tr;
     }
 
     public Key updateTrailer(Trailer trailer) {
@@ -34,5 +37,9 @@ public class TrailerDao {
 
     public List<Trailer> readAllTrailers() {
         return ofy().load().type(Trailer.class).list();
+    }
+
+    public Trailer readTrailer(int lid) {
+        return ofy().load().type(Trailer.class).id(lid).get();
     }
 }

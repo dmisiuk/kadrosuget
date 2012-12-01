@@ -23,7 +23,7 @@ public class Trailer {
     public String shortName;
 
     @Parent
-    public Key<Film> film;
+    public Key film;
 
     public Link youtubeUrl;
 
