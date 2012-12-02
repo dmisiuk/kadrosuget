@@ -1,7 +1,7 @@
 package by.minsler.infokadr.objectify;
 
-import by.minsler.infokadr.bean.Film;
-import by.minsler.infokadr.bean.Trailer;
+import by.minsler.infokadr.dvo.Film;
+import by.minsler.infokadr.dvo.Trailer;
 import com.googlecode.objectify.ObjectifyService;
 
 import javax.servlet.ServletContextEvent;

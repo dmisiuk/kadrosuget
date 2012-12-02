@@ -1,4 +1,5 @@
-<%@ page import="by.minsler.infokadr.bean.Film" %>
+<%@ page import="by.minsler.infokadr.dvo.Film" %>
+<%@ page import="com.googlecode.objectify.Key" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -27,7 +28,8 @@
     <%=film.engName%> <br>
     <%=film.rusName%> <br>
     Создан: <%=film.added%>
-    url: <a href="/films/<%=film.id %>">films/<%=film.id %>
+    url: <a
+        href="/films/<%=Key.create(Film.class,film.id).getString() %>">films/<%=Key.create(Film.class,film.id).getString() %>
 </div>
 
 </body>

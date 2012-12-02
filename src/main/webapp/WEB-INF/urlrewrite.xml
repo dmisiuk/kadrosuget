@@ -17,8 +17,13 @@
 
 
     <rule>
-        <from>^/films/([0-9]+)</from>
-        <to>/films?id=$1</to>
+        <from>^/films/(.+)</from>
+        <to>/films?key=$1</to>
+    </rule>
+
+    <rule>
+        <from>^/video/(.+)</from>
+        <to>/video?key=$1</to>
     </rule>
 
     <rule>

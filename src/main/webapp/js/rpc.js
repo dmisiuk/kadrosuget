@@ -1,8 +1,6 @@
 var rpcUrl = "/rpc";
 var methods = [
-    "getTenFilmsBefore",
-    "getTenFilmsAfter",
-    "readTrailer"
+    "getFilmDto"
 ];
 
 var rpc = new zebra.io.JRPC(rpcUrl, methods);

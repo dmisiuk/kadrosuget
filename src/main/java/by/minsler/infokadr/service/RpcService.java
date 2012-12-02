@@ -1,9 +1,6 @@
 package by.minsler.infokadr.service;
 
-import by.minsler.infokadr.bean.FilmDto;
-import by.minsler.infokadr.bean.Trailer;
-
-import java.util.List;
+import by.minsler.infokadr.dto.FilmDto;
 
 /**
  * User: dzmitry.misiuk
@@ -12,9 +9,5 @@ import java.util.List;
  */
 public interface RpcService {
 
-    List<FilmDto> getTenFilmsBefore(int id);
-
-    List<FilmDto> getTenFilmsAfter(int id);
-
-    Trailer readTrailer(String key);
+    FilmDto getFilmDto(String trailerKeyString);
 }

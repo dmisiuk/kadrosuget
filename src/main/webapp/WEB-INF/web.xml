@@ -80,15 +80,15 @@
         <url-pattern>/films</url-pattern>
     </servlet-mapping>
 
-
     <servlet>
-        <servlet-name>TrailerController</servlet-name>
-        <servlet-class>by.minsler.infokadr.controller.TrailerController</servlet-class>
+        <servlet-name>VideoController</servlet-name>
+        <servlet-class>by.minsler.infokadr.controller.VideoController</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>TrailerController</servlet-name>
-        <url-pattern>/trailers</url-pattern>
+        <servlet-name>VideoController</servlet-name>
+        <url-pattern>/video</url-pattern>
     </servlet-mapping>
+
 
     <context-param>
         <param-name>admin</param-name>

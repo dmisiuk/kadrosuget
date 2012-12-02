@@ -1,6 +1,5 @@
-package by.minsler.infokadr.bean;
+package by.minsler.infokadr.dvo;
 
-import com.google.appengine.api.datastore.Link;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.*;
 
@@ -18,14 +17,16 @@ public class Trailer {
     @Id
     public Long id;
 
-    public String description;
+    public String name;
 
     public String shortName;
 
+    public String description;
+
+    public String url;
+
     @Parent
     public Key film;
-
-    public Link youtubeUrl;
 
     @Index
     public Date added;

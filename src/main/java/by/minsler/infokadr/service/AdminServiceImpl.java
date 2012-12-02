@@ -1,14 +1,12 @@
 package by.minsler.infokadr.service;
 
-import by.minsler.infokadr.bean.Film;
-import by.minsler.infokadr.bean.Trailer;
 import by.minsler.infokadr.dao.FilmDao;
 import by.minsler.infokadr.dao.TrailerDao;
-import com.google.appengine.api.datastore.Link;
+import by.minsler.infokadr.dvo.Film;
+import by.minsler.infokadr.dvo.Trailer;
 import com.googlecode.objectify.Key;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -22,45 +20,44 @@ public class AdminServiceImpl implements AdminService {
     private TrailerDao trailerDao = new TrailerDao();
 
     @Override
-    public String createFilm(Map<String, String> map) {
-        Film film = new Film();
-        film.engName = map.get("engName");
-        film.rusName = map.get("rusName");
+    public String createFilm(Film film) {
         film.added = new Date();
-        return filmDao.createFilm(film).getString();
+        return filmDao.createFilm(film);
     }
 
     @Override
-    public List<Film> readAllFilms() {
-        return filmDao.readAllFilms();
-    }
+    public String createTrailer(Map<String, Object> map) {
+        String filmKeyString = (String) map.get("film");
+        Key<Film> filmKey = Key.create(filmKeyString);
 
-    @Override
-    public String createTrailerWithParent(Map<String, Object> map) {
-        String filmKeyString = (String) map.get("filmId");
         Map<String, String> tm = (Map<String, String>) map.get("trailer");
         Trailer trailer = new Trailer();
         trailer.added = new Date();
+        trailer.name = tm.get("name");
         trailer.shortName = tm.get("shortName");
         trailer.description = tm.get("description");
-        trailer.youtubeUrl = new Link(tm.get("youtubeUrl"));
+        trailer.url = tm.get("url");
+        trailer.film = filmKey;
 
-        trailer.film = Key.create(filmKeyString);
-        Key<Film> k = Key.create(filmKeyString);
+        String trailerKeyString = trailerDao.createTrailer(trailer);
 
-        return trailerDao.createTrailer(trailer).getString();
+        Film film = filmDao.readFilm(filmKeyString);
+        film.addTrailer(trailerKeyString);
+        filmDao.updateFilm(film);
+        return trailerKeyString;
     }
 
     @Override
-    public String createTrailer(Map<String, String> tm) {
+    public Film readFilm(String keyString) {
+        Film film = filmDao.readFilm(keyString);
+        return film;
+    }
 
-        Trailer trailer = new Trailer();
-        trailer.added = new Date();
-        trailer.shortName = tm.get("shortName");
-        trailer.description = tm.get("description");
-        trailer.youtubeUrl = new Link(tm.get("youtubeUrl"));
-
-        return trailerDao.createTrailer(trailer).getString();
+    @Override
+    public Trailer readTrailer(String keyString) {
+        Trailer trailer = trailerDao.readTrailer(keyString);
+        trailer.film = null;
+        return trailer;
     }
 
 }

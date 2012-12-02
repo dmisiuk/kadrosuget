@@ -1,8 +1,8 @@
 package by.minsler.infokadr.service;
 
-import by.minsler.infokadr.bean.Film;
+import by.minsler.infokadr.dvo.Film;
+import by.minsler.infokadr.dvo.Trailer;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -12,12 +12,11 @@ import java.util.Map;
  */
 public interface AdminService {
 
-    String createFilm(Map<String, String> map);
+    String createFilm(Film film);
 
-    List<Film> readAllFilms();
+    String createTrailer(Map<String, Object> map);
 
-    String createTrailerWithParent(Map<String, Object> map);
+    Film readFilm(String keyString);
 
-    String createTrailer(Map<String, String> map);
-
+    Trailer readTrailer(String keyString);
 }

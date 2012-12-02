@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,19 +9,27 @@
     <meta name="keywords"
           content="инфокадр, трейлеры, трейлеры фильмов, новые трейлеры, трейлеры онлайн, кадросюжеты, кадры из фильмов, сюжеты фильмов"/>
 
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
-    <link href="bootstrap/css/responsive-video.css" rel="stylesheet">
-    <script src="js/jquery.min.js" type="text/javascript"></script>
-    <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="bootstrap/js/bootstrap-transition.js" type="text/javascript"></script>
-    <script src="bootstrap/js/bootstrap-dropdown.js" type="text/javascript"></script>
-    <script src="js/infokadr.js" type="text/javascript"></script>
-    <script src="js/addvideo.js" type="text/javascript"></script>
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="/bootstrap/css/responsive-video.css" rel="stylesheet">
+    <script src="/js/jquery.min.js" type="text/javascript"></script>
+    <script src="/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/bootstrap/js/bootstrap-transition.js" type="text/javascript"></script>
+    <script src="/bootstrap/js/bootstrap-dropdown.js" type="text/javascript"></script>
+    <script src="/js/infokadr.js" type="text/javascript"></script>
 
-    <link href="css/infokadr.css" rel="stylesheet">
-    <script src="js/all.io.js" type="text/javascript"></script>
-    <script src="js/rpc.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        var activeFilm = 0;
+
+        var film1 = <%=(String)request.getAttribute("film")%>;
+
+        films = [film1];
+    </script>
+
+    <link href="/css/infokadr.css" rel="stylesheet">
+    <script src="/js/all.io.js" type="text/javascript"></script>
+    <script src="/js/rpc.js" type="text/javascript"></script>
 
 </head>
 <body style="background-color: whiteSmoke">
@@ -75,7 +84,7 @@
                 <!--<li class="previous">-->
                 <!--<a href="#">&larr;</a>-->
                 <!--</li>-->
-                <li><a href="javascript:previous()"><img src="image/vlevo.png"></a></li>
+                <li><a href="javascript:previous()"><img src="/image/vlevo.png"></a></li>
                 <li class="nav-header">Предыдущие трейлеры:</li>
 
             </ul>
@@ -90,7 +99,7 @@
                 <!--<li class="previous">-->
                 <!--<a href="#">&rarr;</a>-->
                 <!--</li>-->
-                <li><a href="javascript:next()"><img src="image/vpravo.png"></a></li>
+                <li><a href="javascript:next()"><img src="/image/vpravo.png"></a></li>
                 <li class="nav-header">Следующие трейлеры:</li>
             </ul>
         </div>

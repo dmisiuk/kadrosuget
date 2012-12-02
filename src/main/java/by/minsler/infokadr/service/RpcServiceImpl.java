@@ -1,13 +1,11 @@
 package by.minsler.infokadr.service;
 
-import by.minsler.infokadr.bean.Film;
-import by.minsler.infokadr.bean.FilmDto;
-import by.minsler.infokadr.bean.Trailer;
 import by.minsler.infokadr.dao.FilmDao;
 import by.minsler.infokadr.dao.TrailerDao;
-
-import java.util.ArrayList;
-import java.util.List;
+import by.minsler.infokadr.dto.FilmDto;
+import by.minsler.infokadr.dvo.Film;
+import by.minsler.infokadr.dvo.Trailer;
+import com.googlecode.objectify.Key;
 
 /**
  * User: dzmitry.misiuk
@@ -20,28 +18,12 @@ public class RpcServiceImpl implements RpcService {
     private TrailerDao trailerDao = new TrailerDao();
 
     @Override
-    public List<FilmDto> getTenFilmsBefore(int id) {
-        Trailer trailer = trailerDao.readTrailer(id);
-        System.out.println(trailer);
-        Film film = filmDao.readFilm(trailer.film);
-        System.out.println(film);
-        FilmDto fdto = new FilmDto(film);
-        fdto.trailers = new ArrayList<Trailer>();
-        fdto.trailers.add(trailer);
-        fdto.activeTrailer = 0;
-        System.out.println(fdto);
-        List<FilmDto> list = new ArrayList<FilmDto>();
-        list.add(fdto);
-        return list;
-    }
+    public FilmDto getFilmDto(String trailerKeyString) {
+        Key<Trailer> trailerKey = Key.create(trailerKeyString);
+        Key<Film> filmKey = trailerKey.getParent();
+        Film film = filmDao.readFilm(filmKey);
 
-    @Override
-    public List<FilmDto> getTenFilmsAfter(int id) {
-        return null;
-    }
-
-    @Override
-    public Trailer readTrailer(String key) {
-        return trailerDao.readTrailer(key);
+        FilmDto fdto = new FilmDto(film, trailerKeyString);
+        return fdto;
     }
 }

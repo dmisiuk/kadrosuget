@@ -1,6 +1,6 @@
 package by.minsler.infokadr.dao;
 
-import by.minsler.infokadr.bean.Film;
+import by.minsler.infokadr.dvo.Film;
 import com.googlecode.objectify.Key;
 
 import java.util.List;
@@ -14,29 +14,30 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
  */
 public class FilmDao {
 
-    public Key createFilm(Film film) {
-        Key<Film> res = ofy().save().entity(film).now();
-        return res;
+    public String createFilm(Film film) {
+        return ofy().save().entity(film).now().getString();
     }
 
-    public void deleteFilm(Key<Film> key) {
-        ofy().delete().key(key).now();
+    public String updateFilm(Film film) {
+        return ofy().save().entity(film).now().getString();
+    }
+
+    public Film readFilm(String stringKey) {
+        Key<Film> key = Key.create(stringKey);
+        return this.readFilm(key);
+    }
+
+    public Film readFilm(Long id) {
+        Key<Film> key = Key.create(Film.class, id);
+        return this.readFilm(key);
     }
 
     public Film readFilm(Key<Film> key) {
         return ofy().load().key(key).get();
     }
 
-    public Key updateFilm(Film film) {
-        Key<Film> res = ofy().save().entity(film).now();
-        return res;
-    }
 
     public List<Film> readAllFilms() {
         return ofy().load().type(Film.class).list();
-    }
-
-    public Film readFilm(int lid) {
-        return ofy().load().type(Film.class).id(lid).get();
     }
 }

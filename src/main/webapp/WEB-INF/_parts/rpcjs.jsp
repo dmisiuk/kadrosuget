@@ -2,9 +2,9 @@
     var rpcUrl = "admin/jsonrpc";
     var methods = [
         "createFilm",
-        "readAllFilms",
-        "createTrailerWithParent",
-        "createTrailer"
+        "readFilm",
+        "createTrailer",
+        "readTrailer"
     ];
 
     var rpc = new zebra.io.JRPC(rpcUrl, methods);

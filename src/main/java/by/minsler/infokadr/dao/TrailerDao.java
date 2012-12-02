@@ -1,9 +1,7 @@
 package by.minsler.infokadr.dao;
 
-import by.minsler.infokadr.bean.Trailer;
+import by.minsler.infokadr.dvo.Trailer;
 import com.googlecode.objectify.Key;
-
-import java.util.List;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
@@ -14,32 +12,16 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
  */
 public class TrailerDao {
 
-    public Key createTrailer(Trailer trailer) {
-        Key<Trailer> res = ofy().save().entity(trailer).now();
-        return res;
+    public String createTrailer(Trailer trailer) {
+        return ofy().save().entity(trailer).now().getString();
     }
 
-    public void deleteTrailer(Key<Trailer> key) {
-        ofy().delete().key(key).now();
+    public String updateTrailer(Trailer trailer) {
+        return ofy().save().entity(trailer).now().getString();
     }
 
     public Trailer readTrailer(String keyString) {
         Key<Trailer> key = Key.create(keyString);
-        Trailer tr = ofy().load().key(key).get();
-        tr.film = null;
-        return tr;
-    }
-
-    public Key updateTrailer(Trailer trailer) {
-        Key<Trailer> res = ofy().save().entity(trailer).now();
-        return res;
-    }
-
-    public List<Trailer> readAllTrailers() {
-        return ofy().load().type(Trailer.class).list();
-    }
-
-    public Trailer readTrailer(int lid) {
-        return ofy().load().type(Trailer.class).id(lid).get();
+        return ofy().load().key(key).get();
     }
 }
