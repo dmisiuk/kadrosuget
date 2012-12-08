@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>Инфокадр: Панель администратора</title>
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/all.io.js"></script>
+<script>
+    var rpcUrl = "admin/jsonrpc";
+    var methods = [
+        "createFilm",
+        "readFilm",
+        "createTrailer",
+        "readTrailer"
+    ];
+
+    var rpc = new zebra.io.JRPC(rpcUrl, methods);
+
+    rpc.print = function (jo) {
+        return JSON.stringify(jo, null, '\t');
+    }
+</script>
+
+<script>
+var showAddFilm = function () {
+    console.log("show add film");
+    $("ul#path").empty();
+    $("ul#path").append(
+            $("<li>").append(
+                    $("<a>").attr("href", "javascript: showAllFilms()").append("Все фильмы")
+            ).append(
+                    $("<span>").attr("class", "divider").append("/")
+            )
+    ).append(
+            $("<li>").attr("class", "active").append("Добавить фильм")
+
+    )
+    $("section#show").empty();
+    $("section#show").append(
+            $("<h3>").append("Добавление фильма")
+    ).append(
+            $("<form>").attr("class", "form-horizontal").append(
+                    $("<div>").attr("class", "control-group").append(
+                            $("<label>").attr("class", "control-label").attr("for", "rusName").append("Название фильма на русском")
+                    ).append(
+                            $("<div>").attr("class", "controls").append(
+                                    $("<input>").attr("type", "text").attr("id", "rusName").attr("placeholder", "русское название")
+                            )
+                    )
+            ).append(
+                    $("<div>").attr("class", "control-group").append(
+                            $("<label>").attr("class", "control-label").attr("for", "engName").append("Название фильма на английском")
+                    ).append(
+                            $("<div>").attr("class", "controls").append(
+                                    $("<input>").attr("type", "text").attr("id", "engName").attr("placeholder", "english name")
+                            )
+                    )
+            ).append(
+                    $("<div>").attr("class", "control-group").append(
+                            $("<div>").attr("class", "controls").append(
+                                    $("<button>").attr("type", "button").attr("class", "btn").attr("onclick", "createFilm()").append("Добавить фильм")
+                            )
+                    )
+            )
+    )
+}
+
+var showAllFilms = function () {
+    console.log("show all films");
+
+    films = [
+        {engName:"hobbit", rusName:"Хоббит", added:new Date()},
+        {engName:"hobbit", rusName:"Хоббит", added:new Date()},
+        {engName:"hobbit", rusName:"Хоббит", added:new Date()},
+        {engName:"hobbit", rusName:"Хоббит", added:new Date()},
+        {engName:"hobbit", rusName:"Хоббит", added:new Date()},
+        {engName:"hobbit", rusName:"Хоббит", added:new Date()},
+        {engName:"hobbit", rusName:"Хоббит", added:new Date()}
+
+    ]
+
+    $("ul#path").empty();
+    $("ul#path").append(
+            $("<li>").attr("class", "active").append("Все фильмы")
+    )
+
+    $("section#show").empty();
+    $("section#show").append(
+            $("<h3>").append("Все фильмы")
+    ).append(
+            $("<table>").attr("class", "table table-bordered table-hover table-condensed").append(
+            ).append().append(
+                    $("<thead>").append(
+                            $("<tr>").append(
+                                    $("<th>").append("Русское имя")
+                            ).append(
+                                    $("<th>").append("English name")
+                            ).append(
+                                    $("<th>").append("Добавлен")
+                            ).append(
+                                    $("<th>").append("Действия")
+                            )
+                    )
+            ).append(
+                    $("<tbody>").attr("id", "filmlist")
+            )
+    )
+
+    createFilmTable(films);
+}
+
+var showFilm = function (id) {
+    film = {"engName":"Hobbit", "rusName":"Хоббит", trailers:[1, 2, 3]};
+    $("ul#path").empty();
+    $("ul#path").append(
+            $("<li>").append(
+                    $("<a>").attr("href", "javascript: showAllFilms()").append("Все фильмы")
+            ).append(
+                    $("<span>").attr("class", "divider").append("/")
+            )
+    ).append(
+            $("<li>").attr("class", "active").append(film.rusName)
+
+    )
+    $("section#show").empty();
+
+    $("section#show").append(
+            $("<form>").attr("class", "form-horizontal").append(
+                    $("<div>").attr("class", "control-group").append(
+                            $("<label>").attr("class", "control-label").attr("for", "rusName").append("Название фильма на русском")
+                    ).append(
+                            $("<div>").attr("class", "controls").append(
+                                    $("<input>").attr("type", "text").attr("id", "rusName").
+                                            attr("disabled", true).attr("value", film.rusName)
+                            )
+                    )
+            ).append(
+                    $("<div>").attr("class", "control-group").append(
+                            $("<label>").attr("class", "control-label").attr("for", "engName").append("Название фильма на английском")
+                    ).append(
+                            $("<div>").attr("class", "controls").append(
+                                    $("<input>").attr("type", "text").attr("id", "engName")
+                                            .attr("disabled", true).attr("value", film.engName)
+                            )
+                    )
+            ).append(
+                    $("<div>").attr("class", "control-group").append(
+                            $("<div>").attr("class", "controls").append(
+                                    $("<button>").attr("type", "button").attr("class", "btn")
+                                            .attr("onclick", "showEditFilm('" + film.id + "')").append("Изменить фильм")
+                            )
+                    )
+            )
+
+    ).append(
+            $("<span>").append("У фильма").append(
+                    $("<button>").attr("type", "button").attr("class", "btn btn-link")
+                            .attr("onclick", "showTrailers('" + film.id + "')").append(film.trailers.length + " связанных видео")
+            )
+
+    )
+}
+
+
+var showTrailer = function (id) {
+
+    film = {"engName":"Hobbit", "rusName":"Хоббит", trailers:[1, 2, 3]};
+
+    trailer = {
+        name:"Трейлер к фильму ***",
+        shortName:"трейлер1",
+        description:"cупер-пупер ролик",
+        url:"283348"
+    }
+
+
+    $("ul#path").empty();
+    $("ul#path").append(
+            $("<li>").append(
+                    $("<a>").attr("href", "javascript: showAllFilms()").append("Все фильмы")
+            ).append(
+                    $("<span>").attr("class", "divider").append("/")
+            )
+    ).append(
+            $("<li>").append(
+                    $("<a>").attr("href", "javascript: showFilm('" + film.id + "')").append(film.rusName)
+            ).append(
+                    $("<span>").attr("class", "divider").append("/")
+            )
+
+    ).append(
+            $("<li>").append(
+                    $("<a>").attr("href", "javascript: showTrailers('" + film.id + "')").append("Связанные видео")
+            ).append(
+                    $("<span>").attr("class", "divider").append("/")
+            )
+
+    ).append(
+            $("<li>").attr("class", "active").append(trailer.shortName)
+    )
+
+
+    $("section#show").empty();
+
+    $("section#show").append(
+            $("<form>").attr("class", "form-horizontal").append(
+                    $("<div>").attr("class", "control-group").append(
+                            $("<label>").attr("class", "control-label").attr("for", "name").append("Название video")
+                    ).append(
+                            $("<div>").attr("class", "controls").append(
+                                    $("<input>").attr("type", "text").attr("id", "name").
+                                            attr("disabled", true).attr("value", trailer.name)
+                            )
+                    )
+            ).append(
+                    $("<div>").attr("class", "control-group").append(
+                            $("<label>").attr("class", "control-label").attr("for", "shortName").append("Короткое название")
+                    ).append(
+                            $("<div>").attr("class", "controls").append(
+                                    $("<input>").attr("type", "text").attr("id", "shortName")
+                                            .attr("disabled", true).attr("value", trailer.shortName)
+                            )
+                    )
+            ).append(
+                    $("<div>").attr("class", "control-group").append(
+                            $("<label>").attr("class", "control-label").attr("for", "description").append("Описание")
+                    ).append(
+                            $("<div>").attr("class", "controls").append(
+                                    $("<textarea>").attr("id", "descripton")
+                                            .attr("disabled", true).attr("value", trailer.description)
+                            )
+                    )
+            ).append(
+                    $("<div>").attr("class", "control-group").append(
+                            $("<label>").attr("class", "control-label").attr("for", "url").append("Youtube id")
+                    ).append(
+                            $("<div>").attr("class", "controls").append(
+                                    $("<input>").attr("type", "text").attr("id", "url")
+                                            .attr("disabled", true).attr("value", trailer.url)
+                            )
+                    )
+            ).append(
+                    $("<div>").attr("class", "control-group").append(
+                            $("<div>").attr("class", "controls").append(
+                                    $("<button>").attr("type", "button").attr("class", "btn")
+                                            .attr("onclick", "showEditTrailer('" + trailer.id + "')").append("Изменить фильм")
+                            )
+                    )
+            )
+
+    )
+}
+
+
+var showEditTrailer = function (id) {
+
+    film = {"engName":"Hobbit", "rusName":"Хоббит", trailers:[1, 2, 3]};
+
+    trailer = {
+        name:"Трейлер к фильму ***",
+        shortName:"трейлер1",
+        description:"cупер-пупер ролик",
+        url:"283348"
+    }
+
+
+    $("ul#path").empty();
+    $("ul#path").append(
+            $("<li>").append(
+                    $("<a>").attr("href", "javascript: showAllFilms()").append("Все фильмы")
+            ).append(
+                    $("<span>").attr("class", "divider").append("/")
+            )
+    ).append(
+            $("<li>").append(
+                    $("<a>").attr("href", "javascript: showFilm('" + film.id + "')").append(film.rusName)
+            ).append(
+                    $("<span>").attr("class", "divider").append("/")
+            )
+
+    ).append(
+            $("<li>").append(
+                    $("<a>").attr("href", "javascript: showTrailers('" + film.id + "')").append("Связанные видео")
+            ).append(
+                    $("<span>").attr("class", "divider").append("/")
+            )
+
+    ).append(
+            $("<li>").attr("class", "active").append(trailer.shortName)
+    )
+
+
+    $("section#show").empty();
+
+    $("section#show").append(
+            $("<form>").attr("class", "form-horizontal").append(
+                    $("<div>").attr("class", "control-group").append(
+                            $("<label>").attr("class", "control-label").attr("for", "name").append("Название video")
+                    ).append(
+                            $("<div>").attr("class", "controls").append(
+                                    $("<input>").attr("type", "text").attr("id", "name").
+                                            attr("disabled", false).attr("value", trailer.name)
+                            )
+                    )
+            ).append(
+                    $("<div>").attr("class", "control-group").append(
+                            $("<label>").attr("class", "control-label").attr("for", "shortName").append("Короткое название")
+                    ).append(
+                            $("<div>").attr("class", "controls").append(
+                                    $("<input>").attr("type", "text").attr("id", "shortName")
+                                            .attr("disabled", false).attr("value", trailer.shortName)
+                            )
+                    )
+            ).append(
+                    $("<div>").attr("class", "control-group").append(
+                            $("<label>").attr("class", "control-label").attr("for", "description").append("Описание")
+                    ).append(
+                            $("<div>").attr("class", "controls").append(
+                                    $("<textarea>").attr("id", "descripton")
+                                            .attr("disabled", false).attr("value", trailer.description)
+                            )
+                    )
+            ).append(
+                    $("<div>").attr("class", "control-group").append(
+                            $("<label>").attr("class", "control-label").attr("for", "url").append("Youtube id")
+                    ).append(
+                            $("<div>").attr("class", "controls").append(
+                                    $("<input>").attr("type", "text").attr("id", "url")
+                                            .attr("disabled", false).attr("value", trailer.url)
+                            )
+                    )
+            ).append(
+                    $("<div>").attr("class", "control-group").append(
+                            $("<div>").attr("class", "controls").append(
+                                    $("<button>").attr("type", "button").attr("class", "btn")
+                                            .attr("onclick", "updateTrailer()").append("Сохранить изменения")
+                            )
+                    )
+            )
+
+    )
+}
+
+var showAddTrailer = function (id) {
+
+    film = {"engName":"Hobbit", "rusName":"Хоббит", trailers:[1, 2, 3]};
+
+    trailer = {
+
+    }
+
+
+    $("ul#path").empty();
+    $("ul#path").append(
+            $("<li>").append(
+                    $("<a>").attr("href", "javascript: showAllFilms()").append("Все фильмы")
+            ).append(
+                    $("<span>").attr("class", "divider").append("/")
+            )
+    ).append(
+            $("<li>").append(
+                    $("<a>").attr("href", "javascript: showFilm('" + film.id + "')").append(film.rusName)
+            ).append(
+                    $("<span>").attr("class", "divider").append("/")
+            )
+
+    ).append(
+            $("<li>").append(
+                    $("<a>").attr("href", "javascript: showTrailers('" + film.id + "')").append("Связанные видео")
+            ).append(
+                    $("<span>").attr("class", "divider").append("/")
+            )
+
+    ).append(
+            $("<li>").attr("class", "active").append("Добавить видео")
+    )
+
+
+    $("section#show").empty();
+
+    $("section#show").append(
+            $("<h3>").append("Добавление видео")
+    ).append(
+            $("<form>").attr("class", "form-horizontal").append(
+                    $("<div>").attr("class", "control-group").append(
+                            $("<label>").attr("class", "control-label").attr("for", "name").append("Название video")
+                    ).append(
+                            $("<div>").attr("class", "controls").append(
+                                    $("<input>").attr("type", "text").attr("id", "name").
+                                            attr("disabled", false).attr("value", trailer.name)
+                            )
+                    )
+            ).append(
+                    $("<div>").attr("class", "control-group").append(
+                            $("<label>").attr("class", "control-label").attr("for", "shortName").append("Короткое название")
+                    ).append(
+                            $("<div>").attr("class", "controls").append(
+                                    $("<input>").attr("type", "text").attr("id", "shortName")
+                                            .attr("disabled", false).attr("value", trailer.shortName)
+                            )
+                    )
+            ).append(
+                    $("<div>").attr("class", "control-group").append(
+                            $("<label>").attr("class", "control-label").attr("for", "description").append("Описание")
+                    ).append(
+                            $("<div>").attr("class", "controls").append(
+                                    $("<textarea>").attr("id", "descripton")
+                                            .attr("disabled", false).attr("value", trailer.description)
+                            )
+                    )
+            ).append(
+                    $("<div>").attr("class", "control-group").append(
+                            $("<label>").attr("class", "control-label").attr("for", "url").append("Youtube id")
+                    ).append(
+                            $("<div>").attr("class", "controls").append(
+                                    $("<input>").attr("type", "text").attr("id", "url")
+                                            .attr("disabled", false).attr("value", trailer.url)
+                            )
+                    )
+            ).append(
+                    $("<div>").attr("class", "control-group").append(
+                            $("<div>").attr("class", "controls").append(
+                                    $("<button>").attr("type", "button").attr("class", "btn")
+                                            .attr("onclick", "createTrailer()").append("Добавить видео")
+                            )
+                    )
+            )
+
+    )
+}
+
+
+var showTrailers = function (id) {
+    console.log("show all trailers for film");
+
+    film = {"engName":"Hobbit", "rusName":"Хоббит", trailers:[1, 2, 3]};
+
+    trailers = [
+        {
+            key:"3890239023820",
+            body:{
+                name:"Трейлер к фильму ***",
+                shortName:"трейлер1",
+                description:"cупер-пупер ролик",
+                url:"283348"
+            }
+        }
+    ]
+
+    $("ul#path").empty();
+    $("ul#path").append(
+            $("<li>").append(
+                    $("<a>").attr("href", "javascript: showAllFilms()").append("Все фильмы")
+            ).append(
+                    $("<span>").attr("class", "divider").append("/")
+            )
+    ).append(
+            $("<li>").append(
+                    $("<a>").attr("href", "javascript: showFilm('" + film.id + "')").append(film.rusName)
+            ).append(
+                    $("<span>").attr("class", "divider").append("/")
+            )
+
+    ).append(
+            $("<li>").attr("class", "active").append("Связанные видео")
+    )
+
+    $("section#show").empty();
+    $("section#show").append(
+            $("<h4>").append(
+                    $("<button>").attr("type", "button").attr("class", "btn").attr("onclick", "showAddTrailer()").append("Добавить видео")
+            )
+    ).append(
+            $("<table>").attr("class", "table table-bordered table-hover table-condensed").append(
+            ).append().append(
+                    $("<thead>").append(
+                            $("<tr>").append(
+                                    $("<th>").append("Название")
+                            ).append(
+                                    $("<th>").append("Короткое имя")
+                            ).append(
+                                    $("<th>").append("Описание")
+                            ).append(
+                                    $("<th>").append("Youtube id")
+                            ).append(
+                                    $("<th>").append("Действия")
+                            )
+                    )
+            ).append(
+                    $("<tbody>").attr("id", "videolist")
+            )
+    )
+
+    createVideoTable(trailers);
+}
+
+
+var showEditFilm = function (id) {
+    film = {"engName":"Hobbit", "rusName":"Хоббит", trailers:[1, 2, 3]};
+    $("ul#path").empty();
+    $("ul#path").append(
+            $("<li>").append(
+                    $("<a>").attr("href", "javascript: showAllFilms()").append("Все фильмы")
+            ).append(
+                    $("<span>").attr("class", "divider").append("/")
+            )
+    ).append(
+            $("<li>").attr("class", "active").append(film.rusName)
+
+    )
+    $("section#show").empty();
+
+    $("section#show").append(
+            $("<form>").attr("class", "form-horizontal").append(
+                    $("<div>").attr("class", "control-group").append(
+                            $("<label>").attr("class", "control-label").attr("for", "rusName").append("Название фильма на русском")
+                    ).append(
+                            $("<div>").attr("class", "controls").append(
+                                    $("<input>").attr("type", "text").attr("id", "rusName").
+                                            attr("disabled", false).attr("value", film.rusName)
+                            )
+                    )
+            ).append(
+                    $("<div>").attr("class", "control-group").append(
+                            $("<label>").attr("class", "control-label").attr("for", "engName").append("Название фильма на английском")
+                    ).append(
+                            $("<div>").attr("class", "controls").append(
+                                    $("<input>").attr("type", "text").attr("id", "engName")
+                                            .attr("disabled", false).attr("value", film.engName)
+                            )
+                    )
+            ).append(
+                    $("<div>").attr("class", "control-group").append(
+                            $("<div>").attr("class", "controls").append(
+                                    $("<button>").attr("type", "button").attr("class", "btn")
+                                            .attr("onclick", "updateFilm()").append("Сохранить изменения")
+                            )
+                    )
+            )
+    )
+}
+
+
+var updateFilm = function () {
+    film = {"engName":"Hobbit", "rusName":"Хоббит", trailers:[1, 2, 3]};
+    showFilm(1);
+}
+
+var updateTrailer = function () {
+    showTrailer(1);
+}
+
+var createVideoTable = function (trailers) {
+    $("tbody#videolist").empty();
+    for (i = 0; i < trailers.length; i++) {
+        video = trailers[i].body;
+        console.log("render trailer: " + JSON.stringify(video))
+        $("tbody#videolist").append(
+                $("<tr>").append(
+                        $("<td>").append(video.name)
+                ).append(
+                        $("<td>").append(video.shortName)
+                ).append(
+                        $("<td>").append(video.description)
+                ).append(
+                        $("<td>").append(video.url)
+                ).append(
+                        $("<td>").append(
+                                $("<button>").attr("type", "button").attr("class", "btn btn-link")
+                                        .attr("onclick", "showTrailer('" + video.id + "')").append("показать")
+                        )
+                )
+        )
+    }
+}
+
+var createFilmTable = function (films) {
+    $("tbody#filmlist").empty();
+    for (i = 0; i < films.length; i++) {
+        film = films[i];
+        $("tbody#filmlist").append(
+                $("<tr>").append(
+                        $("<td>").append(film.rusName)
+                ).append(
+                        $("<td>").append(film.engName)
+                ).append(
+                        $("<td>").append(film.added.toLocaleDateString().toString() + ", " + film.added.toLocaleTimeString())
+                ).append(
+                        $("<td>").append(
+                                $("<button>").attr("type", "button").attr("class", "btn btn-link")
+                                        .attr("onclick", "showFilm('" + film.id + "')").append("показать")
+                        )
+                )
+        )
+    }
+}
+
+var createFilm = function () {
+    console.log("create film")
+    engName = $("input#engName").val();
+    rusName = $("input#rusName").val();
+    film = {rusName:rusName, engName:engName};
+    console.log(film);
+}
+
+
+var createTrailer = function () {
+    console.log("create trailer")
+    trailer = {}
+    trailer.name = $("input#name").val();
+    trailer.shortName = $("input#shortName").val();
+    trailer.description = $("input#description").val();
+    trailer.url = $("input#url").val();
+    console.log(trailer);
+}
+
+$(document).ready(
+        function () {
+            showAllFilms();
+            $(".alert").alert()
+        }
+)
+</script>
+</head>
+<body>
+
+
+<div class="container">
+    <div class="navbar navbar-static-top ">
+        <div class="navbar-inner">
+            <a class="brand" href="/">Infokadr</a>
+            <ul class="nav">
+                <li class="active">
+                    <button type="button" class="btn btn-link" onclick="showAllFilms()">Все фильмы</button>
+                <li>
+                    <button type="button" class="btn btn-link" onclick="showAddFilm()">Добавить фильм</button>
+                </li>
+            </ul>
+            <ul class="nav pull-right">
+                <li><a href="#">Выйти</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span12">
+
+            <section id="breadcrumb">
+                <ul class="breadcrumb" id="path">
+                    <li><a href="#" class="active">Все фильмы</a></li>
+                </ul>
+            </section>
+            <hr>
+            <div class="alert hidden" id="flash">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <strong>Warning!</strong> Best check yo self, you're not looking too good.
+            </div>
+            <section id="show">
+            </section>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
